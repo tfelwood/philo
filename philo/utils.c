@@ -62,7 +62,7 @@ void ft_sleep(long long ms)
 	long long time;
 
 	time = ft_time();
-	usleep(time * 950);
+	usleep(ms * 950);
 	while (ft_time() < time + ms)
 		usleep(ms * 2);
 }

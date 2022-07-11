@@ -19,7 +19,6 @@ int ft_is_died(t_philo *ph)
 
 	time = ft_time();
 	sem_wait(ph->philo_sem);
-	printf("%lld\n%lld\n%lld\n%lld\n", time, ph->eat_time, ph->info.start_prog, time - ph->eat_time);
 	eat_time = ph->eat_time;
 	sem_post(ph->philo_sem);
 	return (time - eat_time >= ph->info.die_time);
@@ -45,12 +44,13 @@ void *ft_watch(void *ptr)
 	while (!start)
 	{
 		sem_wait(ph->philo_sem);
-		start = ph->info.start_prog;
+	//	start = ph->info.start_prog;
+		start = ph->eat_time;
 		sem_post(ph->philo_sem);
-		usleep(200);
+		usleep(500);
 	}
 	while (!ft_is_died(ph))
-		usleep(200);
+		usleep(500);
 	ft_print(ph, DIED);
 	exit(DIED);
 }
@@ -85,8 +85,9 @@ int	ft_philo_life(t_philo *ph)
 	sem_post(ph->info.synchro_1_sem);
 	sem_wait(ph->info.synchro_2_sem);
 	sem_wait(ph->philo_sem);
-	ph->info.start_prog = ft_time();
-	ph->eat_time = ph->info.start_prog;
+	//ph->info.start_prog = ft_time();
+	//ph->eat_time = ph->info.start_prog;
+	ph->eat_time = ft_time();
 	sem_post(ph->philo_sem);
 	ft_print(ph, THINK);
 	if (ph->id % 2 == 0)
@@ -102,12 +103,14 @@ int	ft_philo_life(t_philo *ph)
 		sem_post(ph->philo_sem);
 		ft_print(ph, EAT);
 		ft_sleep(ph->info.eat_time);
+		sem_post(ph->info.forks_sem);
+		sem_post(ph->info.forks_sem);
 		++ph->num_of_feed;
 		if (ph->num_of_feed == ph->info.num_of_feed)
 			sem_post(ph->info.satiety_sem);
 		ft_print(ph, SLEEP);
 		ft_sleep(ph->info.sleep_time);
 		ft_print(ph, THINK);
-		usleep(100);
-	}//todo num of feed!!!ошибки из-за насыщения плюс висельники откуда висельники пока хз ps вроде убрала висельников проверь!
+		usleep(200);
+	}
 }

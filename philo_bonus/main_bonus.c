@@ -111,17 +111,18 @@ int ft_fork(t_philo *ph)
 
 void	ft_wait(t_info *info)
 {
-	int status;
 	pid_t	pid;
 	int 	i;
 
 	i = 0;
-	pid = waitpid(-1, &status, 0);
+	pid = waitpid(-1, 0, 0);
 	if (pid > 0)
 	{
+		if (pid == info->synchro_prcs)
+			pid = waitpid(-1, 0, 0);
 		while (i < info->num)
 		{
-			if (info->philo_pids[i] != pid)
+			if (info->philo_pids[i] != pid && info->philo_pids[i] != info->synchro_prcs)
 				kill(info->philo_pids[i], SIGTERM);//todoпеределать под килл олл!
 			++i;
 		}
