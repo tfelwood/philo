@@ -6,7 +6,7 @@
 /*   By: tfelwood <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 15:47:48 by tfelwood          #+#    #+#             */
-/*   Updated: 2022/07/11 12:06:48 by tfelwood         ###   ########.fr       */
+/*   Updated: 2022/07/11 19:26:28 by tfelwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,6 @@ int ft_is_died(t_philo *ph)
 	return (time - eat_time >= ph->info.die_time);
 }
 
-/*int ft_read_data(sem_t *sem, long long *num)
-{
-	int start;
-
-	sem_wait(ph->philo_sem);
-	start = ph->info.start_prog;
-	sem_post(ph->philo_sem);
-	return (start);
-}*/
-
 void *ft_watch(void *ptr)
 {
 	t_philo		*ph;
@@ -44,12 +34,11 @@ void *ft_watch(void *ptr)
 	while (!start)
 	{
 		sem_wait(ph->philo_sem);
-	//	start = ph->info.start_prog;
 		start = ph->eat_time;
 		sem_post(ph->philo_sem);
-		usleep(500);
+		usleep(2000);
 	}
-	while (!ft_is_died(ph))
+	while (!ft_is_died(ph)){}
 		usleep(500);
 	ft_print(ph, DIED);
 	exit(DIED);
@@ -82,16 +71,14 @@ int	ft_philo_life(t_philo *ph)
 		ft_destroy(&ph);
 		return (EXIT_FAILURE);
 	}
-	sem_post(ph->info.synchro_1_sem);
-	sem_wait(ph->info.synchro_2_sem);
+//	sem_post(ph->info.synchro_1_sem);
+//	sem_wait(ph->info.synchro_2_sem);
+//	ft_print(ph, THINK);
 	sem_wait(ph->philo_sem);
-	//ph->info.start_prog = ft_time();
-	//ph->eat_time = ph->info.start_prog;
 	ph->eat_time = ft_time();
 	sem_post(ph->philo_sem);
-	ft_print(ph, THINK);
-	if (ph->id % 2 == 0)
-		usleep(50);
+//	if (ph->id > ph->info.num / 2)
+//		usleep(200);
 	while (1)
 	{
 		sem_wait(ph->info.forks_sem);
@@ -111,6 +98,6 @@ int	ft_philo_life(t_philo *ph)
 		ft_print(ph, SLEEP);
 		ft_sleep(ph->info.sleep_time);
 		ft_print(ph, THINK);
-		usleep(200);
+		usleep(100);
 	}
 }

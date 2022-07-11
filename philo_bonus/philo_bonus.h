@@ -57,10 +57,10 @@ typedef struct s_info
 	sem_t		*print_sem;
 	sem_t		*satiety_sem;
 	sem_t		*forks_sem;
-	sem_t		*synchro_1_sem;
-	sem_t		*synchro_2_sem;
+//	sem_t		*synchro_1_sem;
+//	sem_t		*synchro_2_sem;
 	pid_t		*philo_pids; //init
-	pid_t		synchro_prcs;
+//	pid_t		synchro_prcs;
 	pid_t		sat_control_prcs;
 }	t_info;
 

@@ -72,11 +72,11 @@ void ft_print(t_philo *ph, t_status st)//может, при EAT сделать l
 	const char *msgs[STATUS_NUM] = {"is thinking", "has taken a fork",
 									"is eating", "is sleeping", "died"};
 	sem_wait(ph->info.print_sem);
-	if (st != EAT)
+//	if (st != EAT)
 		printf("%lld %d %s\n", ft_time()
 			- ph->info.start_prog, ph->id, msgs[st]);
-	else
-		printf("%lld %d %s\n", ph->eat_time - ph->info.start_prog, ph->id, msgs[st]);
+//	else
+//		printf("%lld %d %s\n", ph->eat_time - ph->info.start_prog, ph->id, msgs[st]);
 	if (st != DIED)
 		sem_post(ph->info.print_sem);
 }

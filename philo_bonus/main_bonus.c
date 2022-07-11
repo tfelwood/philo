@@ -6,7 +6,7 @@
 /*   By: tfelwood <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 23:10:32 by tfelwood          #+#    #+#             */
-/*   Updated: 2022/07/10 19:33:44 by tfelwood         ###   ########.fr       */
+/*   Updated: 2022/07/11 18:21:33 by tfelwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int ft_fork(t_philo *ph)
 {
 	ph->id = 0;
 
-	ph->info.synchro_prcs = ft_fork_process(ft_synchro, ph);
+//	ph->info.synchro_prcs = ft_fork_process(ft_synchro, ph);
 	if (ph->info.num_of_feed != 0)
 		ph->info.sat_control_prcs = ft_fork_process(ft_have_fed, ph);
 	if (ph->info.synchro_prcs == -1 || ph->info.sat_control_prcs == -1)
@@ -154,5 +154,3 @@ int main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	}
 }
-
-//ft_kill(ph->info.philo_pids, ph->info.num);
