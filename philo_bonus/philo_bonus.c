@@ -6,7 +6,7 @@
 /*   By: tfelwood <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 15:47:48 by tfelwood          #+#    #+#             */
-/*   Updated: 2022/07/11 19:26:28 by tfelwood         ###   ########.fr       */
+/*   Updated: 2022/07/11 20:02:23 by smaar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,24 +27,24 @@ int ft_is_died(t_philo *ph)
 void *ft_watch(void *ptr)
 {
 	t_philo		*ph;
-	long long	start;
+	//long long	start;
 
-	start = 0;
+	//start = 0;
 	ph = (t_philo *)ptr;
-	while (!start)
-	{
-		sem_wait(ph->philo_sem);
-		start = ph->eat_time;
-		sem_post(ph->philo_sem);
-		usleep(2000);
-	}
-	while (!ft_is_died(ph)){}
+//	while (!start)
+//	{
+//		sem_wait(ph->philo_sem);
+//		start = ph->eat_time;
+//		sem_post(ph->philo_sem);
+//		usleep(2000);
+//	}
+	while (!ft_is_died(ph))
 		usleep(500);
 	ft_print(ph, DIED);
 	exit(DIED);
 }
 
-int	ft_philo_init(t_philo *ph)
+/*int	ft_philo_init(t_philo *ph)
 {
 	char	*tmp;
 
@@ -62,6 +62,27 @@ int	ft_philo_init(t_philo *ph)
 		return (PTHREAD_ERROR);
 	pthread_detach(ph->watcher); //подумать над джойном
 	return (NO_ERR);
+}*/
+
+int	ft_philo_init(t_philo *ph)
+{
+	char	*tmp;
+
+	ph->eat_time = 0;
+	tmp = ft_itoa(ph->id);
+	ph->eat_time_sem_name = ft_strjoin(PHILO_TAG, tmp);
+	free(tmp);
+	if (!ph->eat_time_sem_name)
+		return (MALLOC_ERROR);
+	sem_unlink(ph->eat_time_sem_name);
+	ph->philo_sem = sem_open(ph->eat_time_sem_name, O_CREAT, 0644, 1);
+	if (ph->philo_sem == SEM_FAILED)
+		return (SEM_ERROR);
+	ph->eat_time = ft_time();// no th -> no sem
+	if (pthread_create(&ph->watcher, NULL, ft_watch, ph))
+		return (PTHREAD_ERROR);
+	pthread_detach(ph->watcher); //подумать над джойном
+	return (NO_ERR);
 }
 
 int	ft_philo_life(t_philo *ph)
@@ -74,9 +95,9 @@ int	ft_philo_life(t_philo *ph)
 //	sem_post(ph->info.synchro_1_sem);
 //	sem_wait(ph->info.synchro_2_sem);
 //	ft_print(ph, THINK);
-	sem_wait(ph->philo_sem);
-	ph->eat_time = ft_time();
-	sem_post(ph->philo_sem);
+//	sem_wait(ph->philo_sem);
+//	ph->eat_time = ft_time();
+//	sem_post(ph->philo_sem);
 //	if (ph->id > ph->info.num / 2)
 //		usleep(200);
 	while (1)

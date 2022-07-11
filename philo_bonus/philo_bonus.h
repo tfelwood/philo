@@ -6,7 +6,7 @@
 /*   By: tfelwood <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 21:56:16 by tfelwood          #+#    #+#             */
-/*   Updated: 2022/07/10 18:15:24 by tfelwood         ###   ########.fr       */
+/*   Updated: 2022/07/11 19:38:06 by smaar            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,10 @@ typedef struct s_info
 	sem_t		*print_sem;
 	sem_t		*satiety_sem;
 	sem_t		*forks_sem;
-//	sem_t		*synchro_1_sem;
-//	sem_t		*synchro_2_sem;
+	sem_t		*synchro_1_sem;
+	sem_t		*synchro_2_sem;
 	pid_t		*philo_pids; //init
-//	pid_t		synchro_prcs;
+	pid_t		synchro_prcs;
 	pid_t		sat_control_prcs;
 }	t_info;
 
