@@ -6,7 +6,7 @@
 /*   By: tfelwood <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 15:47:48 by tfelwood          #+#    #+#             */
-/*   Updated: 2022/07/11 20:02:23 by smaar            ###   ########.fr       */
+/*   Updated: 2022/07/11 22:48:45 by tfelwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ int	ft_philo_init(t_philo *ph)
 
 int	ft_philo_life(t_philo *ph)
 {
+//	sem_post(ph->info.synchro_1_sem);
+//	sem_wait(ph->info.synchro_2_sem);
 	if (ft_error(ft_philo_init(ph)))
 	{
 		ft_destroy(&ph);
@@ -99,7 +101,7 @@ int	ft_philo_life(t_philo *ph)
 //	ph->eat_time = ft_time();
 //	sem_post(ph->philo_sem);
 //	if (ph->id > ph->info.num / 2)
-//		usleep(200);
+//		usleep(300);
 	while (1)
 	{
 		sem_wait(ph->info.forks_sem);

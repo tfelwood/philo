@@ -6,7 +6,7 @@
 /*   By: tfelwood <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 11:28:24 by tfelwood          #+#    #+#             */
-/*   Updated: 2022/07/09 00:56:17 by tfelwood         ###   ########.fr       */
+/*   Updated: 2022/07/11 22:54:23 by tfelwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ int	ft_eat(t_philo *ph)
 	pthread_mutex_lock(&ph->info->forks[ph->second]);
 	ft_print(ph, HAS_TAKEN_A_FORK, ph->info);
 	pthread_mutex_lock(&ph->mtx);
-	ph->last_eat = ft_time() - ph->info->start;
+	ph->last_eat = ft_time();
 	pthread_mutex_unlock(&ph->mtx);
 	ft_print(ph, EAT, ph->info);
 	ft_sleep(ph->info->eat);
 	++ph->num_of_feed;
-	pthread_mutex_lock(&ph->info->forks[ph->second]);
-	pthread_mutex_lock(&ph->info->forks[ph->first]);
+	pthread_mutex_unlock(&ph->info->forks[ph->second]);
+	pthread_mutex_unlock(&ph->info->forks[ph->first]);
 	if (ph->num_of_feed == ph->info->num_of_feed)
 	{
 		pthread_mutex_lock(&ph->info->satiety_mtx);

@@ -80,9 +80,6 @@ void ft_print(t_philo *ph, t_status st, t_info *info)//может, при EAT с
 		return ;
 	}
 	pthread_mutex_unlock(&info->exit_mtx);
-	if (st != EAT)
-		printf("%lld %d %s\n", ft_time() - info->start, ph->id, msgs[st]);
-	else
-		printf("%lld %d %s\n", ph->last_eat, ph->id, msgs[st]);
+	printf("%lld %d %s\n", ft_time() - info->start, ph->id, msgs[st]);
 	pthread_mutex_unlock(&info->print_mtx);
 }
