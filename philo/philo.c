@@ -59,7 +59,7 @@ void *ft_philo_live(void *data)
 			break ;
 		pthread_mutex_unlock(&ph->info->exit_mtx);
 		ft_print(ph, THINK, ph->info);
-		usleep(60);
+		usleep(100);
 	}
 	pthread_mutex_unlock(&ph->info->exit_mtx);
 	return (NULL);
@@ -129,15 +129,3 @@ int	ft_philo_arr_init(t_philo **arr, t_info *info)
 	}
 	return (err);
 }
-
-
-/*pthread_mutex_lock(&info->exit_mtx);
-			info->exit = 1;
-			pthread_mutex_unlock(&info->exit_mtx);
-			while (i--)
-			{
-				pthread_join((*arr + i)->thrd, NULL);
-				pthread_mutex_destroy(&(*arr + i)->mtx);
-			}
-			free(*arr);
-			*arr = NULL;*/

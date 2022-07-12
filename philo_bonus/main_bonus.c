@@ -88,7 +88,7 @@ int ft_fork(t_philo *ph)
 {
 	ph->id = 0;
 
-//	ph->info.synchro_prcs = ft_fork_process(ft_synchro, ph);
+	ph->info.synchro_prcs = ft_fork_process(ft_synchro, ph);
 	if (ph->info.num_of_feed != 0)
 		ph->info.sat_control_prcs = ft_fork_process(ft_have_fed, ph);
 	if (ph->info.synchro_prcs == -1 || ph->info.sat_control_prcs == -1)

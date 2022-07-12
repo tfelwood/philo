@@ -20,15 +20,15 @@ OBJS		=	$(patsubst %.c,%.o,$(SRCS))
 NAME		=	philo
 CC			= 	gcc
 RM			=	rm -f
-CFLAGS		=	-Wall -Werror -Wextra - MMD
+CFLAGS		=	-Wall -Werror -Wextra #-fsanitize=thread
 D_FILES		=	$(patsubst %.c,%.d,$(SRCS))
 
 .PHONY:	all clean fclean re bonus
 
 all:	$(NAME)
 
-#%.o:	%.c
-#		$(CC) $(CFLAGS) -c $< -o ${<:.c=.o} -MMD
+%.o:	%.c
+		$(CC) $(CFLAGS) -c $< -o ${<:.c=.o} -MMD
 
 $(NAME):	$(OBJS)
 			$(CC) $(OBJS) $(CFLAGS) -o $(NAME)

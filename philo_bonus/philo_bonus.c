@@ -68,7 +68,6 @@ int	ft_philo_init(t_philo *ph)
 {
 	char	*tmp;
 
-	ph->eat_time = 0;
 	tmp = ft_itoa(ph->id);
 	ph->eat_time_sem_name = ft_strjoin(PHILO_TAG, tmp);
 	free(tmp);
@@ -87,21 +86,11 @@ int	ft_philo_init(t_philo *ph)
 
 int	ft_philo_life(t_philo *ph)
 {
-//	sem_post(ph->info.synchro_1_sem);
-//	sem_wait(ph->info.synchro_2_sem);
 	if (ft_error(ft_philo_init(ph)))
 	{
 		ft_destroy(&ph);
 		return (EXIT_FAILURE);
 	}
-//	sem_post(ph->info.synchro_1_sem);
-//	sem_wait(ph->info.synchro_2_sem);
-//	ft_print(ph, THINK);
-//	sem_wait(ph->philo_sem);
-//	ph->eat_time = ft_time();
-//	sem_post(ph->philo_sem);
-//	if (ph->id > ph->info.num / 2)
-//		usleep(300);
 	while (1)
 	{
 		sem_wait(ph->info.forks_sem);
