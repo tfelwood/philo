@@ -19,6 +19,7 @@ int	ft_eat(t_philo *ph)
 	if (ph->info->num == 1)
 	{
 		ft_sleep(ph->info->sleep);
+		pthread_mutex_unlock(&ph->info->forks[ph->first]);
 		return (1);
 	}
 	pthread_mutex_lock(&ph->info->forks[ph->second]);
@@ -40,14 +41,15 @@ int	ft_eat(t_philo *ph)
 	return (0);
 }
 
-void *ft_philo_live(void *data)
+void	*ft_philo_live(void *data)
 {
-	t_philo *ph;
+	t_philo	*ph;
 
 	ph = (t_philo *)data;
-	if (ph->id % 2 == 0)
-		usleep(200);
-	ft_print(ph, THINK, ph->info);
+	pthread_mutex_lock(&ph->info->exit_mtx);
+	pthread_mutex_unlock(&ph->info->exit_mtx);
+	if (ph->info->num > 3 && ph->id % 2 == 0)
+		usleep((ph->info->eat) * 1000 + DELAY);
 	while (1)
 	{
 		if (ft_eat(ph))
@@ -59,7 +61,8 @@ void *ft_philo_live(void *data)
 			break ;
 		pthread_mutex_unlock(&ph->info->exit_mtx);
 		ft_print(ph, THINK, ph->info);
-		usleep(100);
+		if (ph->info->num % 2 == 1)
+			usleep(DELAY);
 	}
 	pthread_mutex_unlock(&ph->info->exit_mtx);
 	return (NULL);
@@ -91,7 +94,7 @@ static int	ft_philo_init(int id, t_philo *philo, t_info *info)
 	return (NO_ERR);
 }
 
-void ft_philo_arr_destroy(t_philo **arr, int num)
+void	ft_philo_arr_destroy(t_philo **arr, int num)
 {
 	if (!*arr)
 		return ;
@@ -110,22 +113,26 @@ void ft_philo_arr_destroy(t_philo **arr, int num)
 int	ft_philo_arr_init(t_philo **arr, t_info *info)
 {
 	enum e_error	err;
-	int	i;
+	int				i;
 
 	err = NO_ERR;
 	i = 0;
 	*arr = (t_philo *)malloc(info->num * sizeof(t_philo));
 	if (!*arr)
 		return (MALLOC_ERROR);
+	pthread_mutex_lock(&info->exit_mtx);
 	while (i < info->num)
 	{
 		err = ft_philo_init(i + 1, *arr + i, info);
 		if (err != NO_ERR)
 		{
+			info->exit = 1;
+			pthread_mutex_unlock(&info->exit_mtx);
 			ft_philo_arr_destroy(arr, i);
 			break ;
 		}
 		++i;
 	}
+	pthread_mutex_unlock(&info->exit_mtx);
 	return (err);
 }

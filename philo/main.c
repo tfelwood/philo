@@ -12,20 +12,20 @@
 
 #include "philo.h"
 
-int ft_error(t_error err)
+int	ft_error(t_error err)
 {
-	const char *errors[ERR_NUM] =
-			{"Wrong number of arguments", "Wrong value of arguments",
-			 "Malloc error", "Pthread error", "Mutex error"};
+	const char	*errors[ERR_NUM] =
+		{"Wrong number of arguments", "Wrong value of arguments",
+		"Malloc error", "Pthread error", "Mutex error"};
 
 	if (err > NO_ERR && err <= ERR_NUM)
 		printf("%s\n", errors[err - 1]);
 	return (err);
 }
 
-static int ft_is_died(t_philo *ph)
+static int	ft_is_died(t_philo *ph)
 {
-	long long time;
+	long long	time;
 
 	pthread_mutex_lock(&ph->mtx);
 	time = ph->last_eat;
@@ -33,7 +33,7 @@ static int ft_is_died(t_philo *ph)
 	return (ft_time() - time >= ph->info->die);
 }
 
-static int ft_have_fed(t_info *info)
+static int	ft_have_fed(t_info *info)
 {
 	int	tmp_sat;
 
@@ -64,14 +64,14 @@ static void	ft_watch_philo(t_philo *arr)
 			}
 			++i;
 		}
-		usleep(100);
+		usleep(WATCHER_DELAY);
 	}
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_info	info;
-	t_philo *arr;
+	t_philo	*arr;
 
 	arr = NULL;
 	if (argc == 5 || argc == 6)
@@ -81,7 +81,8 @@ int main(int argc, char **argv)
 		else
 		{
 			ft_watch_philo(arr);
-			ft_destroy(&info, &arr);
+			ft_philo_arr_destroy(&arr, info.num);
+			ft_info_destroy(&info);
 		}
 	}
 	else

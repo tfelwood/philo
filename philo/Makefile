@@ -11,7 +11,6 @@
 # ************************************************************************** #
 
 
-
 SRCS		=	main.c\
 				utils.c\
 				init.c\
@@ -20,7 +19,7 @@ OBJS		=	$(patsubst %.c,%.o,$(SRCS))
 NAME		=	philo
 CC			= 	gcc
 RM			=	rm -f
-CFLAGS		=	-Wall -Werror -Wextra #-fsanitize=thread
+CFLAGS		=	-Wall -Werror -Wextra -fsanitize=thread
 D_FILES		=	$(patsubst %.c,%.d,$(SRCS))
 
 .PHONY:	all clean fclean re bonus
