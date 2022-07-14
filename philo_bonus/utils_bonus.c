@@ -73,8 +73,7 @@ void ft_print(t_philo *ph, t_status st)//может, при EAT сделать l
 									"is eating", "is sleeping", "died"};
 	sem_wait(ph->info.print_sem);
 //	if (st != EAT)
-		printf("%lld %d %s\n", ft_time()
-			- ph->info.start_prog, ph->id, msgs[st]);
+	printf("%lld %d %s\n", ft_time() - ph->info.start_prog, ph->id, msgs[st]);
 //	else
 //		printf("%lld %d %s\n", ph->eat_time - ph->info.start_prog, ph->id, msgs[st]);
 	if (st != DIED)

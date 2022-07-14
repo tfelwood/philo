@@ -17,11 +17,10 @@ int ft_is_died(t_philo *ph)
 	long long time;
 	long long eat_time;
 
-	time = ft_time();
 	sem_wait(ph->philo_sem);
 	eat_time = ph->eat_time;
 	sem_post(ph->philo_sem);
-	return (time - eat_time >= ph->info.die_time);
+	return (ft_time() - eat_time >= ph->info.die_time);
 }
 
 void *ft_watch(void *ptr)
@@ -39,7 +38,7 @@ void *ft_watch(void *ptr)
 //		usleep(2000);
 //	}
 	while (!ft_is_died(ph))
-		usleep(500);
+		usleep(1000);
 	ft_print(ph, DIED);
 	exit(DIED);
 }
@@ -77,7 +76,8 @@ int	ft_philo_init(t_philo *ph)
 	ph->philo_sem = sem_open(ph->eat_time_sem_name, O_CREAT, 0644, 1);
 	if (ph->philo_sem == SEM_FAILED)
 		return (SEM_ERROR);
-	ph->eat_time = ft_time();// no th -> no sem
+	ph->eat_time = ph->info.start_prog;
+	//ph->eat_time = ft_time();// no th -> no sem
 	if (pthread_create(&ph->watcher, NULL, ft_watch, ph))
 		return (PTHREAD_ERROR);
 	pthread_detach(ph->watcher); //подумать над джойном
@@ -86,11 +86,19 @@ int	ft_philo_init(t_philo *ph)
 
 int	ft_philo_life(t_philo *ph)
 {
+	sem_post(ph->info.synchro_1_sem);
+	sem_wait(ph->info.synchro_2_sem);
 	if (ft_error(ft_philo_init(ph)))
 	{
 		ft_destroy(&ph);
 		return (EXIT_FAILURE);
 	}
+//	if (ph->id % 2 == 0)
+//		usleep(ph->info.eat_time * 1000 + ph->id * 100);
+	if (/*ph->info.num > 3 &&*/ ph->id % 2 == 0)
+		usleep((ph->info.eat_time) * 1000 + 600);
+//	if (ph->info.num <=3)
+//		usleep((ph->info.eat_time) * 1000 + 600);
 	while (1)
 	{
 		sem_wait(ph->info.forks_sem);
@@ -110,6 +118,6 @@ int	ft_philo_life(t_philo *ph)
 		ft_print(ph, SLEEP);
 		ft_sleep(ph->info.sleep_time);
 		ft_print(ph, THINK);
-		usleep(100);
+	//	usleep(500);
 	}
 }
