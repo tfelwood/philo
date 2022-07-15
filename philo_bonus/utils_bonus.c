@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include <sys/time.h>
-#include <stdio.h>
 #include "philo_bonus.h"
 
 static int	ft_isdigit(int c)

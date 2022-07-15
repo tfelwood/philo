@@ -6,7 +6,7 @@
 /*   By: tfelwood <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 21:56:16 by tfelwood          #+#    #+#             */
-/*   Updated: 2022/07/15 12:24:49 by tfelwood         ###   ########.fr       */
+/*   Updated: 2022/07/15 12:48:06 by tfelwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 # define ERR_NUM 6
 # define STATUS_NUM 5
 # define PHILO_TAG	"/philo_"
+# define DELAY 600
+# define WATCHER_DELAY 1000
 
 typedef enum e_error
 {

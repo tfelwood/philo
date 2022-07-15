@@ -6,7 +6,7 @@
 /*   By: tfelwood <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 15:47:48 by tfelwood          #+#    #+#             */
-/*   Updated: 2022/07/15 12:14:09 by tfelwood         ###   ########.fr       */
+/*   Updated: 2022/07/15 12:48:06 by tfelwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	*ft_watch(void *ptr)
 
 	ph = (t_philo *)ptr;
 	while (!ft_is_died(ph))
-		usleep(1000);
+		usleep(WATCHER_DELAY);
 	ft_print(ph, DIED);
 	exit(DIED);
 }
@@ -68,9 +68,9 @@ static int	ft_philo_prepare(t_philo *ph)
 		return (EXIT_FAILURE);
 	}
 	if (ph->info.num > 3 && ph->id % 2 == 0)
-		usleep((ph->info.eat_time) * 1000 + 600);
+		usleep((ph->info.eat_time) * 1000 + DELAY);
 	if (ph->info.num <= 3)
-		usleep((ph->info.eat_time) * 1000 + 600);
+		usleep((ph->info.eat_time) * 1000 + DELAY);
 	return (NO_ERR);
 }
 

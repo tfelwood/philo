@@ -1,14 +1,4 @@
-# ************************************************************************** #
-#                                                                            #
-#                                                        :::      ::::::::   #
-#   Makefile                                           :+:      :+:    :+:   #
-#                                                    +:+ +:+         +:+     #
-#   By: tfelwood <marvin@42.fr>                    +#+  +:+       +#+        #
-#                                                +#+#+#+#+#+   +#+           #
-#   Created: 2022/07/15 11:22:57 by tfelwood          #+#    #+#             #
-#   Updated: 2022/07/15 11:22:57 by tfelwood         ###   ########.fr       #
-#                                                                            #
-# ************************************************************************** #
+
 
 
 
@@ -16,7 +6,8 @@ SRCS		=	main_bonus.c\
 				utils_bonus.c\
 				init_bonus.c\
 				utils2_bonus.c\
-				philo_bonus.c
+				philo_bonus.c\
+				fork_bonus.c
 OBJS		=	$(patsubst %.c,%.o,$(SRCS))
 NAME		=	philo_bonus
 CC			= 	gcc
