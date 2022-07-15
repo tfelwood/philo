@@ -70,7 +70,7 @@ void	ft_sleep(long long ms)
 void	ft_print(t_philo *ph, t_status st, t_info *info)
 {
 	const char	*msgs[STATUS_NUM] = {"is thinking", "has taken a fork",
-	"is eating", "is sleeping", "died"};
+		"is eating", "is sleeping", "died"};
 
 	pthread_mutex_lock(&info->print_mtx);
 	pthread_mutex_lock(&info->exit_mtx);

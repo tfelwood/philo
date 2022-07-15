@@ -13,13 +13,13 @@
 #include <string.h>
 #include "philo.h"
 
-void	ft_mtx_destroy(pthread_mutex_t *arr, int num)
+static void	ft_mtx_destroy(pthread_mutex_t *arr, int num)
 {
 	while (num--)
 		pthread_mutex_destroy(&arr[num]);
 }
 
-int	ft_mutex_arr_create(pthread_mutex_t **arr, int num)
+static int	ft_mutex_arr_create(pthread_mutex_t **arr, int num)
 {
 	int	i;
 
@@ -54,7 +54,7 @@ void	ft_info_destroy(t_info *info)
 	pthread_mutex_destroy(&info->satiety_mtx);
 }
 
-int	ft_info_init(t_info *info, int argc, char **argv)
+static int	ft_info_init(t_info *info, int argc, char **argv)
 {
 	int	err;
 

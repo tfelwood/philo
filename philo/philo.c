@@ -6,13 +6,13 @@
 /*   By: tfelwood <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 11:28:24 by tfelwood          #+#    #+#             */
-/*   Updated: 2022/07/11 22:54:23 by tfelwood         ###   ########.fr       */
+/*   Updated: 2022/07/15 11:53:49 by tfelwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	ft_eat(t_philo *ph)
+static int	ft_eat(t_philo *ph)
 {
 	pthread_mutex_lock(&ph->info->forks[ph->first]);
 	ft_print(ph, HAS_TAKEN_A_FORK, ph->info);

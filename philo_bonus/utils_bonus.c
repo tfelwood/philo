@@ -6,11 +6,12 @@
 /*   By: tfelwood <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 23:19:30 by tfelwood          #+#    #+#             */
-/*   Updated: 2022/07/10 18:33:33 by tfelwood         ###   ########.fr       */
+/*   Updated: 2022/07/15 12:16:41 by tfelwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sys/time.h>
+#include <stdio.h>
 #include "philo_bonus.h"
 
 static int	ft_isdigit(int c)
@@ -49,17 +50,17 @@ int	ft_strtoi(const char *str, int *number)
 	return (0);
 }
 
-long long	ft_time()
+long long	ft_time(void)
 {
-	struct timeval cur_time;
+	struct timeval	cur_time;
 
 	gettimeofday(&cur_time, NULL);
 	return (cur_time.tv_sec * 1000 + cur_time.tv_usec / 1000);
 }
 
-void ft_sleep(long long ms)
+void	ft_sleep(long long ms)
 {
-	long long time;
+	long long	time;
 
 	time = ft_time();
 	usleep(ms * 950);
@@ -67,15 +68,13 @@ void ft_sleep(long long ms)
 		usleep(ms * 2);
 }
 
-void ft_print(t_philo *ph, t_status st)//может, при EAT сделать last_time?
+void	ft_print(t_philo *ph, t_status st)
 {
-	const char *msgs[STATUS_NUM] = {"is thinking", "has taken a fork",
-									"is eating", "is sleeping", "died"};
+	const char	*msgs[STATUS_NUM] = {"is thinking", "has taken a fork",
+		"is eating", "is sleeping", "died"};
+
 	sem_wait(ph->info.print_sem);
-//	if (st != EAT)
 	printf("%lld %d %s\n", ft_time() - ph->info.start_prog, ph->id, msgs[st]);
-//	else
-//		printf("%lld %d %s\n", ph->eat_time - ph->info.start_prog, ph->id, msgs[st]);
 	if (st != DIED)
 		sem_post(ph->info.print_sem);
 }

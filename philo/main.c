@@ -6,17 +6,18 @@
 /*   By: tfelwood <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 11:34:03 by tfelwood          #+#    #+#             */
-/*   Updated: 2022/07/09 02:07:52 by tfelwood         ###   ########.fr       */
+/*   Updated: 2022/07/15 11:47:21 by tfelwood         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	ft_error(t_error err)
+static int	ft_error(t_error err)
 {
-	const char	*errors[ERR_NUM] =
-		{"Wrong number of arguments", "Wrong value of arguments",
-		"Malloc error", "Pthread error", "Mutex error"};
+	const char	*errors[ERR_NUM] = {"Wrong number of arguments",
+		"Wrong value of arguments",
+		"Malloc error", "Pthread error",
+		"Mutex error"};
 
 	if (err > NO_ERR && err <= ERR_NUM)
 		printf("%s\n", errors[err - 1]);

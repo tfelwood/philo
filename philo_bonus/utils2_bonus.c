@@ -69,7 +69,7 @@ static int	ft_strlen(const char *s)
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	int	str_size;
+	int		str_size;
 	char	*new_str;
 
 	if (s1 && s2)
