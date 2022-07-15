@@ -58,13 +58,15 @@ void	*ft_philo_live(void *data)
 		ft_sleep(ph->info->sleep);
 		pthread_mutex_lock(&ph->info->exit_mtx);
 		if (ph->info->exit)
+		{
+			pthread_mutex_unlock(&ph->info->exit_mtx);
 			break ;
+		}
 		pthread_mutex_unlock(&ph->info->exit_mtx);
 		ft_print(ph, THINK, ph->info);
 		if (ph->info->num % 2 == 1)
 			usleep(DELAY);
 	}
-	pthread_mutex_unlock(&ph->info->exit_mtx);
 	return (NULL);
 }
 
