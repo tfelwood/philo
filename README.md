@@ -35,16 +35,16 @@
 
 ### Запуск многопоточной версии:
 ```
-cd philo 
-make  
+$ cd philo 
+$ make  
 $ ./philo number_of_philosophers time_to_die time_to_eat time_to_sleep [number_of_times_each_philosopher_must_eat]
 
 ```
 
 ### Запуск многопроцессной версии:
 ```
-cd philo_bonus 
-make  
+$ cd philo_bonus 
+$ make  
 $ ./philo_bonus number_of_philosophers time_to_die time_to_eat time_to_sleep [number_of_times_each_philosopher_must_eat]
 
 ```
